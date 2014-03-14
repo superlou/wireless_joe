@@ -15,6 +15,9 @@ class YqlAuth:
         y = yql.ThreeLegged(API_KEY, SECRET)
 
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'cache'))
+        if not os.path.exists(path):
+            os.makedirs(path)
+
         token_store = FileTokenStore(path, secret='apples')
 
         stored_token = token_store.get(stored_token_name)
