@@ -16,6 +16,11 @@ team = Team(yql, config["league_id"], config["team_number"])
 print "Team:\t", team.name()
 print "League:\t", team.league_name()
 
-cmd = ""
-while cmd != "exit":
-	cmd = raw_input("> ")
+print team.players()
+
+# cmd = ""
+# while cmd != "exit":
+# 	cmd = raw_input("> ")
+
+# 	if cmd == "p":
+# 		print team.players()

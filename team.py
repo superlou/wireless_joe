@@ -1,4 +1,7 @@
-class Team:
+from pprint import pprint
+from player import Player
+
+class Team(object):
     yql = None
     league_key = None
     team_key = None
@@ -29,9 +32,23 @@ class Team:
 
         pass
 
-    def find_by_position(self, position):
+    def find_by_position(self, position="*"):
         query = "select roster.players.player"
         query += " from fantasysports.teams.roster"
         query += " where team_key='" + self.team_key + "' and roster.players.player.eligible_positions.position='" + position + "'"
         result = self.yql.execute(query)
-        print result
+        return result
+
+    def players(self):
+        query = "select roster.players.player from fantasysports.teams.roster"
+        query += " where team_key='{0}'"
+        query = query.format(self.team_key)
+        result = self.yql.execute(query)
+
+        players = []
+
+        for row in result.rows:
+            player_data = row['roster']['players']['player']
+            players.append(Player(player_data))
+
+        return players
